@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Image, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  ActivityIndicator,
+  Modal,
+  TouchableWithoutFeedback
+} from 'react-native';
 import { TextInput, Button, Text } from 'react-native-paper';
 import { useAuth } from '../../hooks/useAuth';
 import { Formik } from 'formik';
@@ -41,11 +52,33 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
+  // Modal de carregamento que bloqueia a interação do usuário
+  const LoadingModal = () => (
+    <Modal
+      transparent={true}
+      animationType="fade"
+      visible={loading}
+      onRequestClose={() => { }}
+    >
+      <TouchableWithoutFeedback>
+        <View style={styles.modalBackground}>
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#6200ee" />
+            <Text style={styles.loadingText}>Entrando...</Text>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </Modal>
+  );
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
+      {/* Modal de carregamento */}
+      <LoadingModal />
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.logoContainer}>
           <Image
@@ -74,6 +107,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 keyboardType="email-address"
                 autoCapitalize="none"
                 left={<TextInput.Icon icon="email" />}
+                disabled={loading}
               />
               {touched.email && errors.email && (
                 <Text style={styles.errorText}>{errors.email}</Text>
@@ -93,8 +127,10 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                   <TextInput.Icon
                     icon={secureTextEntry ? "eye" : "eye-off"}
                     onPress={() => setSecureTextEntry(!secureTextEntry)}
+                    disabled={loading}
                   />
                 }
+                disabled={loading}
               />
               {touched.password && errors.password && (
                 <Text style={styles.errorText}>{errors.password}</Text>
@@ -157,6 +193,30 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     paddingVertical: 8,
+  },
+  // Estilos para o modal de carregamento
+  modalBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingContainer: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#333',
   },
 });
 
