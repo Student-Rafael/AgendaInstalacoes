@@ -1,20 +1,27 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { LogBox } from 'react-native';
+import { theme } from './src/theme';
+import { AuthProvider } from './src/contexts/authContext';
+import AppNavigation from './src/navegation';
+
+// Ignorar avisos específicos
+LogBox.ignoreLogs([
+  'AsyncStorage has been extracted from react-native core',
+  'Setting a timer for a long period of time',
+]);
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <PaperProvider theme={theme}>
+        <AuthProvider>
+          <AppNavigation />
+          <StatusBar style="auto" />
+        </AuthProvider>
+      </PaperProvider>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
