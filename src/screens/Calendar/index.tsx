@@ -35,11 +35,30 @@ type MarkedDates = {
 
 const CalendarScreen: React.FC<Props> = ({ navigation }) => {
   const theme = useTheme();
-  const { user, signOut } = useAuth();
+  const { user, setScreenLoading, signOut } = useAuth();
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [installations, setInstallations] = useState<Installation[]>([]);
   const [markedDates, setMarkedDates] = useState<MarkedDates>({});
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const prepareScreen = async () => {
+      try {
+        await loadAllInstallations();
+        await loadInstallationsByDate(selectedDate);
+      } finally {
+        // Finalize o carregamento quando tudo estiver pronto
+        setScreenLoading(false);
+      }
+    };
+    
+    prepareScreen();
+    
+    // Cleanup function
+    return () => {
+      // Se necessário, cancele operações pendentes aqui
+    };
+  }, []);
 
   const handleLogout = () => {
     Alert.alert(

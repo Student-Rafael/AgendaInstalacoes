@@ -19,10 +19,13 @@ type User = {
 type AuthContextType = {
   user: User | null;
   loading: boolean;
+  screenLoading: boolean;
+  setScreenLoading: (loading: boolean) => void;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, name: string, isAdmin?: boolean) => Promise<void>;
   signOut: () => Promise<void>;
 };
+
 
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
@@ -33,6 +36,7 @@ type AuthProviderProps = {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [screenLoading, setScreenLoading] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -64,8 +68,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signIn = async (email: string, password: string) => {
     try {
+      setScreenLoading(true);
       await signInWithEmailAndPassword(auth, email, password);
+
     } catch (error) {
+      setScreenLoading(false);
       console.error('Erro ao fazer login:', error);
       throw error;
     }
@@ -100,7 +107,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      loading, 
+      screenLoading, 
+      setScreenLoading,
+      signIn, 
+      signUp, 
+      signOut 
+    }}>
       {children}
     </AuthContext.Provider>
   );

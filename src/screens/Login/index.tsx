@@ -53,32 +53,13 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   // Modal de carregamento que bloqueia a interação do usuário
-  const LoadingModal = () => (
-    <Modal
-      transparent={true}
-      animationType="fade"
-      visible={loading}
-      onRequestClose={() => { }}
-    >
-      <TouchableWithoutFeedback>
-        <View style={styles.modalBackground}>
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#6200ee" />
-            <Text style={styles.loadingText}>Entrando...</Text>
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
-    </Modal>
-  );
+
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      {/* Modal de carregamento */}
-      <LoadingModal />
-
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.logoContainer}>
           <Image
@@ -139,7 +120,6 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
               <Button
                 mode="contained"
                 onPress={() => handleSubmit()}
-                loading={loading}
                 disabled={loading}
                 style={styles.button}
               >

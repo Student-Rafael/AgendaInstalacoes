@@ -6,6 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
 import ProfileScreen from '../screens/Profile';
 import ChangePasswordScreen from '../screens/Profile/ChangePasswordScreen';
+import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import LoadingOverlay from '../components/LoadingOverlay';
 
 import { StackParamList } from '../routes/StackParamList'
 
@@ -154,19 +156,30 @@ const AppTabs = () => {
   );
 };
 
+// Componente de carregamento inicial
+const InitialLoadingScreen = () => (
+  <View style={styles.loadingContainer}>
+    <ActivityIndicator size="large" color="#6200ee" />
+    <Text style={styles.loadingText}>Carregando...</Text>
+  </View>
+);
+
 // Navegação principal
 const AppNavigation = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, screenLoading } = useAuth();
   
   if (loading) {
-    return null; // Ou um componente de loading
+    return <InitialLoadingScreen />;
   }
 
   return (
     <NavigationContainer>
+      {/* Overlay de carregamento global */}
+      <LoadingOverlay visible={screenLoading} text="Carregando..." />
+      
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
-          <Stack.Screen name="Home" component={AppTabs} />
+          <Stack.Screen name="App" component={AppTabs} />
         ) : (
           <Stack.Screen name="Login" component={LoginScreen} />
         )}
@@ -174,5 +187,19 @@ const AppNavigation = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#333',
+  },
+});
 
 export default AppNavigation;

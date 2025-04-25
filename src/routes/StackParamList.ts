@@ -10,5 +10,6 @@ export type StackParamList = {
   EditInstallation: { installationId: string };
   Profile: undefined;
   ChangePassword: undefined;
+  App: undefined;
 
 };
