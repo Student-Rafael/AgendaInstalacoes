@@ -142,13 +142,22 @@ const CalendarScreen: React.FC<Props> = ({ navigation }) => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton
-          icon="logout"
-          iconColor="#fff"
-          size={24}
-          onPress={handleLogout}
-          style={{ marginRight: 10 }}
-        />
+        <View style={{ flexDirection: 'row' }}>
+          <IconButton
+            icon="account"
+            iconColor="#fff"
+            size={24}
+            onPress={() => navigation.navigate('Profile')}
+            style={{ marginRight: 10 }}
+          />
+          <IconButton
+            icon="logout"
+            iconColor="#fff"
+            size={24}
+            onPress={handleLogout}
+            style={{ marginRight: 10 }}
+          />
+        </View>
       )
     });
   }, [navigation]);

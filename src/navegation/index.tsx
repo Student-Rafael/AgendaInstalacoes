@@ -4,6 +4,8 @@ import { createStackNavigator, StackNavigationProp, StackScreenProps } from '@re
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
+import ProfileScreen from '../screens/Profile';
+import ChangePasswordScreen from '../screens/Profile/ChangePasswordScreen';
 
 import { StackParamList } from '../routes/StackParamList'
 
@@ -66,6 +68,16 @@ const CalendarStack = () => (
       name="EditInstallation" 
       component={EditInstallationScreen} 
       options={{ title: 'Editar Instalação' }}
+    />
+    <Stack.Screen 
+      name="Profile" 
+      component={ProfileScreen} 
+      options={{ title: 'Meu Perfil' }}
+    />
+    <Stack.Screen 
+      name="ChangePassword" 
+      component={ChangePasswordScreen} 
+      options={{ title: 'Alterar Senha' }}
     />
   </Stack.Navigator>
 );

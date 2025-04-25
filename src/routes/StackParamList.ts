@@ -8,5 +8,7 @@ export type StackParamList = {
   AddUser: undefined;
   EditUser: { userId: string };
   EditInstallation: { installationId: string };
+  Profile: undefined;
+  ChangePassword: undefined;
 
 };
