@@ -3,9 +3,10 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { LogBox } from 'react-native';
-import { theme } from './src/theme';
 import { AuthProvider } from './src/contexts/authContext';
 import AppNavigation from './src/navegation';
+import { ThemeProvider } from './src/contexts/themeContext';
+
 
 // Ignorar avisos específicos
 LogBox.ignoreLogs([
@@ -15,13 +16,13 @@ LogBox.ignoreLogs([
 
 export default function App() {
   return (
+    <ThemeProvider>
     <SafeAreaProvider>
-      <PaperProvider theme={theme}>
         <AuthProvider>
           <AppNavigation />
           <StatusBar style="auto" />
         </AuthProvider>
-      </PaperProvider>
     </SafeAreaProvider>
+    </ThemeProvider>
   );
 }

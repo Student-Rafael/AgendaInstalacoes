@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { getUserById } from '../../services/users';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { useAppTheme } from '../../contexts/themeContext';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { StackParamList } from '../../routes/StackParamList';
@@ -17,6 +18,7 @@ interface Props {
 
 const ProfileScreen: React.FC<Props> = ({ navigation }) => {
   const theme = useTheme();
+  const { isDarkTheme, toggleTheme } = useAppTheme();
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState<{
@@ -102,7 +104,7 @@ const ProfileScreen: React.FC<Props> = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <Card style={styles.profileCard}>
         <View style={styles.avatarContainer}>
           <Avatar.Text 
@@ -113,8 +115,8 @@ const ProfileScreen: React.FC<Props> = ({ navigation }) => {
         </View>
         
         <Card.Content style={styles.cardContent}>
-          <Text style={styles.nameText}>{userData.name}</Text>
-          <Text style={styles.emailText}>{userData.email}</Text>
+          <Text style={[styles.nameText, { color: theme.colors.onSurface }]}>{userData.name}</Text>
+          <Text style={[styles.emailText, { color: theme.colors.onSurface }]}>{userData.email}</Text>
           
           <Divider style={styles.divider} />
           
@@ -143,6 +145,15 @@ const ProfileScreen: React.FC<Props> = ({ navigation }) => {
         >
           Alterar Senha
         </Button>
+
+        <Button 
+          mode="contained" 
+          icon="theme-light-dark" 
+          onPress={toggleTheme}
+          style={styles.actionButton}
+        >
+          Alternar Tema
+        </Button>
         
         <Button 
           mode="contained" 
@@ -160,7 +171,6 @@ const ProfileScreen: React.FC<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
     padding: 16,
   },
   centered: {
