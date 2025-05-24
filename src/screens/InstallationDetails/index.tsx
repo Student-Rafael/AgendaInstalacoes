@@ -131,7 +131,7 @@ const InstallationDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
 
   if (loading) {
     return (
-      <View style={[styles.container, styles.centered]}>
+      <View style={[styles.container, { backgroundColor: theme.colors.background }, styles.centered]}>
         <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
@@ -139,7 +139,7 @@ const InstallationDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
 
   if (!installation) {
     return (
-      <View style={[styles.container, styles.centered]}>
+      <View style={[styles.container, { backgroundColor: theme.colors.background },  styles.centered]}>
         <Text>Instalação não encontrada.</Text>
         <Button mode="contained" onPress={() => navigation.goBack()} style={styles.backButton}>
           Voltar
@@ -163,7 +163,7 @@ const InstallationDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   const statusLabel = getStatusLabel(installation.status);
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+    <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]} contentContainerStyle={styles.contentContainer}>
       <Card style={styles.card}>
         <Card.Content>
           <View style={styles.header}>

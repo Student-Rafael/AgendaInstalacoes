@@ -2,10 +2,12 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { PaperProvider } from 'react-native-paper';
 import { LightTheme, DarkCustomTheme } from '../theme/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import type { MD3Theme } from 'react-native-paper';
 
 type ThemeContextData = {
   isDarkTheme: boolean;
   toggleTheme: () => void;
+  theme: MD3Theme;
 };
 
 const STORAGE_KEY = '@APP_THEME';
@@ -13,6 +15,7 @@ const STORAGE_KEY = '@APP_THEME';
 const ThemeContext = createContext<ThemeContextData>({
   isDarkTheme: false,
   toggleTheme: () => {},
+  theme: LightTheme,
 });
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
@@ -50,7 +53,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const theme = isDarkTheme ? DarkCustomTheme : LightTheme;
 
   return (
-    <ThemeContext.Provider value={{ isDarkTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ isDarkTheme, toggleTheme, theme }}>
       <PaperProvider theme={theme}>{children}</PaperProvider>
     </ThemeContext.Provider>
   );

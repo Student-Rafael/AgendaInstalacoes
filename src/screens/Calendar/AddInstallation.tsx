@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useAuth } from '../../hooks/useAuth';
 import { addInstallation } from '../../services/instalation';
+import { useAppTheme } from '../../contexts/themeContext';
+import { getNavigationTheme } from '../../theme/utils';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
@@ -260,7 +262,7 @@ const AddInstallationScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'theme.colors.background',
   },
   scrollContainer: {
     padding: 16,
@@ -276,7 +278,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 10,
-    backgroundColor: '#fff',
+    backgroundColor: 'theme.colors.background',
   },
   errorText: {
     color: 'red',

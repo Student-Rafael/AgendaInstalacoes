@@ -101,7 +101,7 @@ const UserManagementScreen: React.FC<Props> = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <Text style={styles.title}>Gerenciamento de Usuários</Text>
       
       {loading ? (

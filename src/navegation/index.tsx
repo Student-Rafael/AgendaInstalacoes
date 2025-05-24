@@ -3,7 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from 'react-native-paper';
+import { useAppTheme } from '../contexts/themeContext';
+import { getNavigationTheme } from '../theme/utils';
 import ProfileScreen from '../screens/Profile';
 import ChangePasswordScreen from '../screens/Profile/ChangePasswordScreen';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
@@ -118,7 +119,7 @@ const UserStack = () => (
 
 // Navegação com Tabs para usuários autenticados
 const AppTabs = () => {
-  const theme = useTheme();
+  const { theme } = useAppTheme();
   const { user } = useAuth();
   
   return (
@@ -167,13 +168,15 @@ const InitialLoadingScreen = () => (
 // Navegação principal
 const AppNavigation = () => {
   const { user, loading, screenLoading } = useAuth();
+  const { theme } = useAppTheme();
+  const navigationTheme = getNavigationTheme(theme);
   
   if (loading) {
     return <InitialLoadingScreen />;
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={navigationTheme}>
       {/* Overlay de carregamento global */}
       <LoadingOverlay visible={screenLoading} text="Carregando..." />
       

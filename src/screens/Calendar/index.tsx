@@ -243,7 +243,8 @@ const CalendarScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+
       <CalendarComponent
         markedDates={markedDates}
         onDayPress={handleDayPress}

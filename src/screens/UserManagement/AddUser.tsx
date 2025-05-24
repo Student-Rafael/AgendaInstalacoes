@@ -190,7 +190,7 @@ const AddUserScreen: React.FC<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'theme.colors.background',
     padding: 16,
   },
   scrollContainer: {
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 10,
-    backgroundColor: '#fff',
+    backgroundColor: 'theme.colors.background',
   },
   errorText: {
     color: 'red',
