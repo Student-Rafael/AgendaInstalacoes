@@ -17,6 +17,7 @@ export const LightTheme = {
     notification: '#f50057',
     success: '#4CAF50',
     warning: '#FF9800',
+    
   },
 };
 

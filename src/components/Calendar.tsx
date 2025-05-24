@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Calendar as RNCalendar, LocaleConfig } from 'react-native-calendars';
-import { useTheme } from 'react-native-paper';
+import { useAppTheme } from '../contexts/themeContext';
 
 // Configuração de localização para português
 LocaleConfig.locales['pt-br'] = {
@@ -36,11 +36,13 @@ type CalendarProps = {
 };
 
 const CalendarComponent = ({ markedDates, onDayPress, selectedDate }: CalendarProps) => {
-  const theme = useTheme();
+  const { theme, isDarkTheme } = useAppTheme();
+  
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <RNCalendar
+        key={isDarkTheme ? 'dark' : 'light'}
         current={selectedDate}
         onDayPress={onDayPress}
         markedDates={markedDates}
@@ -49,13 +51,13 @@ const CalendarComponent = ({ markedDates, onDayPress, selectedDate }: CalendarPr
         firstDay={0}
         enableSwipeMonths={true}
         theme={{
-          calendarBackground: '#ffffff',
+          calendarBackground: theme.colors.background,
           textSectionTitleColor: '#b6c1cd',
           selectedDayBackgroundColor: theme.colors.primary,
           selectedDayTextColor: '#ffffff',
-          todayTextColor: theme.colors.primary,
+          todayTextColor: theme.colors.onBackground,
           dayTextColor: '#2d4150',
-          textDisabledColor: '#d9e1e8',
+          textDisabledColor: (theme.colors as any).disabled,
           dotColor: theme.colors.primary,
           selectedDotColor: '#ffffff',
           arrowColor: theme.colors.primary,
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     overflow: 'hidden',
-    backgroundColor: '#fff',
+    backgroundColor: 'theme.colors.background',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,

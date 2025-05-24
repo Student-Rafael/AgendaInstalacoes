@@ -15,7 +15,7 @@ import { TextInput, Button, Text } from 'react-native-paper';
 import { useAuth } from '../../hooks/useAuth';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-
+import { useAppTheme } from '../../contexts/themeContext';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RouteProp } from '@react-navigation/native';
 import type { StackParamList } from '../../routes/StackParamList'; // <- Ajuste o caminho conforme sua definição
@@ -37,6 +37,7 @@ const LoginSchema = Yup.object().shape({
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const { signIn } = useAuth();
+  const { isDarkTheme, theme } = useAppTheme();
   const [loading, setLoading] = useState(false);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
@@ -63,11 +64,15 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.logoContainer}>
           <Image
-            source={require('../../../assets/logo.png')}
+           source={
+          isDarkTheme
+            ? require('../../../assets/logo2.png')
+            : require('../../../assets/logo.png')
+        }
             style={styles.logo}
             resizeMode="contain"
           />
-          <Text style={styles.title}>Agenda de Instalações</Text>
+          <Text style={[styles.title, { color: theme.colors.onBackground }]}>Agenda de Instalações</Text>
         </View>
 
         <Formik

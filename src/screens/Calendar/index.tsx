@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet, FlatList, Alert } from 'react-native';
 import { FAB, Text, ActivityIndicator, useTheme, IconButton } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
 import CalendarComponent from '../../components/Calendar';
 import InstallationItem from '../../components/InstallationItem';
 import { useAuth } from '../../hooks/useAuth';
@@ -13,7 +12,6 @@ import {
 } from '../../services/instalation';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RouteProp } from '@react-navigation/native';
 import type { StackParamList } from '../../routes/StackParamList'; // <- Ajuste o caminho conforme sua definição
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<StackParamList, 'Login'>;
@@ -54,10 +52,6 @@ const CalendarScreen: React.FC<Props> = ({ navigation }) => {
     
     prepareScreen();
     
-    // Cleanup function
-    return () => {
-      // Se necessário, cancele operações pendentes aqui
-    };
   }, []);
 
   const handleLogout = () => {
@@ -286,7 +280,7 @@ const CalendarScreen: React.FC<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'theme.colors.background',
     padding: 16,
   },
   listContainer: {

@@ -230,7 +230,7 @@ const EditUserScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'theme.colors.background',
     padding: 16,
   },
   centered: {
@@ -251,10 +251,10 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 10,
-    backgroundColor: '#fff',
+    backgroundColor: 'theme.colors.background',
   },
   disabledInput: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'theme.colors.background',
     color: '#888',
   },
   errorText: {

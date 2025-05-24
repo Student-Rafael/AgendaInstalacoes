@@ -186,7 +186,7 @@ const ChangePasswordScreen: React.FC<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'theme.colors.background',
   },
   scrollContainer: {
     padding: 16,
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 10,
-    backgroundColor: '#fff',
+    backgroundColor: 'theme.colors.background',
   },
   errorText: {
     color: 'red',
