@@ -1,7 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider as PaperProvider } from 'react-native-paper';
 import { LogBox } from 'react-native';
 import { AuthProvider } from './src/contexts/authContext';
 import AppNavigation from './src/navegation';

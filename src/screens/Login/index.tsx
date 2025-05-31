@@ -17,7 +17,6 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useAppTheme } from '../../contexts/themeContext';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RouteProp } from '@react-navigation/native';
 import type { StackParamList } from '../../routes/StackParamList'; // <- Ajuste o caminho conforme sua definição
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<StackParamList, 'Login'>;
@@ -53,9 +52,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
-  // Modal de carregamento que bloqueia a interação do usuário
-
-
+  
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
